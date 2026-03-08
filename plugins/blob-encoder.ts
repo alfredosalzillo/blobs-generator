@@ -1,8 +1,8 @@
-import { Blob } from './blob';
+import type { BlobDescriptor } from "@alfredo.salzillo/blobs";
 
 export const encoderVersion = 'v1';
 
-export const encodeBlob = (blob: Blob) => {
+export const encodeBlob = (blob: BlobDescriptor) => {
   const {
     id,
     x,
@@ -30,7 +30,7 @@ export const encodeBlob = (blob: Blob) => {
   ].join('|')
 }
 
-export const decodeBlob = (descriptor: string): Blob => {
+export const decodeBlob = (descriptor: string): BlobDescriptor => {
   const [
     id,
     x,

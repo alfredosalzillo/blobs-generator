@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { randomBlob } from '@/lib/blob';
-import { generateBlobUrl, version } from '../route';
+import { type NextRequest, NextResponse } from 'next/server';
+import { generateBlob } from '@alfredo.salzillo/blobs';
+import { generateBlobUrl } from "@/app/api/blob/route";
+import { encoderVersion } from "@/plugins/blob-encoder";
 
 export async function GET(req: NextRequest) {
   const host = req.nextUrl.origin;
@@ -8,11 +9,11 @@ export async function GET(req: NextRequest) {
   
   const width = Number(searchParams.get('width') || '200');
   const height = Number(searchParams.get('height') || '200');
-  const descriptor = randomBlob(width, height);
+  const descriptor = generateBlob(width, height);
   
   return NextResponse.json({
     type: 'blob',
-    version,
+    version: encoderVersion,
     descriptor,
     link: generateBlobUrl(host, descriptor),
   });
