@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
 
     // Manual SVG rendering to avoid using the Client Component @alfredo.salzillo/blobs/Blob
     const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${blob.width} ${blob.height}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${blob.width} ${blob.height}" width="${blob.width}" height="${blob.height}">
         <path d="${spline(blob.body, 1, true)}" stroke-width="2" stroke="${blob.colors.dark}" fill="${blob.colors.primary}" />
         <g>
           ${blob.eyes
