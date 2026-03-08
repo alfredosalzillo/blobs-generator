@@ -1,61 +1,46 @@
 import type { BlobDescriptor } from "@alfredo.salzillo/blobs";
 
-export const encoderVersion = 'v1';
+export const encoderVersion = "v1";
 
 export const encodeBlob = (blob: BlobDescriptor) => {
-  const {
-    id,
-    x,
-    y,
-    width,
-    height,
-    body,
-    eyes,
-    colors,
-  } = blob;
-  const {
-    primary,
-    dark,
-    light,
-  } = colors
+  const { id, x, y, width, height, body, eyes, colors } = blob;
+  const { primary, dark, light } = colors;
   return [
     id,
     x,
     y,
     width,
     height,
-    body.map(({ x, y }) => [x, y].join('-')).join(','),
-    eyes.map(({ x, y, size }) => [x, y, size].join('-')).join(','),
-    [primary, dark, light].map((color) => color.replace('hsl(', '').replace(')', '') ).join('-')
-  ].join('|')
-}
+    body.map(({ x, y }) => [x, y].join("-")).join(","),
+    eyes.map(({ x, y, size }) => [x, y, size].join("-")).join(","),
+    [primary, dark, light]
+      .map((color) => color.replace("hsl(", "").replace(")", ""))
+      .join("-"),
+  ].join("|");
+};
 
 export const decodeBlob = (descriptor: string): BlobDescriptor => {
-  const [
-    id,
-    x,
-    y,
-    width,
-    height,
-    body,
-    eyes,
-    colors,
-  ] = descriptor.split('|');
+  const [id, x, y, width, height, body, eyes, colors] = descriptor.split("|");
   return {
     id,
     x: Number(x),
     y: Number(y),
     width: Number(width),
     height: Number(height),
-    body: body.split(',')
-      .map(p => p.split('-').map(Number))
+    body: body
+      .split(",")
+      .map((p) => p.split("-").map(Number))
       .map(([x, y]) => ({ x, y })),
-    eyes: eyes.split(',')
-      .map((e) => e.split('-').map(Number))
+    eyes: eyes
+      .split(",")
+      .map((e) => e.split("-").map(Number))
       .map(([x, y, size]) => ({ x, y, size })),
-    colors: [colors.split('-').map((color) => `hsl(${color})`)]
-      .map(([primary, dark, light]) => ({
-        primary, dark, light,
-      }))[0],
-  }
-}
+    colors: [colors.split("-").map((color) => `hsl(${color})`)].map(
+      ([primary, dark, light]) => ({
+        primary,
+        dark,
+        light,
+      }),
+    )[0],
+  };
+};
