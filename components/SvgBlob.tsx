@@ -1,6 +1,5 @@
-import React from 'https://esm.sh/react@17.0.1?external=react-dom';
-import { Blob, Eye, Palette } from '../lib/blob.ts';
-import { spline } from '../lib/spline.ts';
+import type { Blob, Eye, Palette } from '@/lib/blob';
+import { spline } from '@/lib/spline';
 
 const SvgBlobEye = (props: Eye & { colors: Palette }) => {
   const { x, y, size, colors } = props
@@ -12,7 +11,7 @@ const SvgBlobEye = (props: Eye & { colors: Palette }) => {
         r={size}
         cx="0"
         cy="0"
-        stroke-width="2"
+        strokeWidth="2"
         stroke={colors.dark}
         fill={colors.light}
       />
@@ -43,12 +42,12 @@ const SvgBlob = ({
     >
       <path
         d={spline(body as any[], 1, true)}
-        stroke-width={2}
+        strokeWidth={2}
         stroke={colors.dark}
         fill={colors.primary}
       />
       <g>
-        ${eyes.map((eye) => <SvgBlobEye {...eye} colors={colors}/>)}
+        {eyes.map((eye, index) => <SvgBlobEye key={index} {...eye} colors={colors}/>)}
       </g>
     </svg>
   )

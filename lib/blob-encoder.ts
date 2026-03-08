@@ -1,4 +1,4 @@
-import { Blob } from './blob.ts';
+import { Blob } from './blob';
 
 export const encoderVersion = 'v1';
 

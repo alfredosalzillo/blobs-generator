@@ -1,4 +1,4 @@
-import { random } from './random.ts';
+import { random } from './random';
 
 export type Palette = {
   primary: string,
