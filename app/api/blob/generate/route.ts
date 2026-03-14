@@ -1,7 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { generateBlob } from "@alfredo.salzillo/blobs";
-import { generateBlobUrl } from "@/app/api/blob/route";
-import { encoderVersion } from "@/plugins/blob-encoder";
+import { type BlobDescriptor, generateBlob } from "@alfredo.salzillo/blobs";
+import { encodeBlob, encoderVersion } from "@/plugins/blob-encoder";
+
+const generateBlobUrl = (host: string, blob: BlobDescriptor) =>
+  encodeURI(`${host}/api/blob?version=${encoderVersion}&d=${encodeBlob(blob)}`);
 
 export async function GET(req: NextRequest) {
   const host = req.nextUrl.origin;
