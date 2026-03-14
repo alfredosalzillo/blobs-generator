@@ -1,10 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { type BlobDescriptor, generateBlob } from "@alfredo.salzillo/blobs";
+import { generateBlob } from "@alfredo.salzillo/blobs";
 import StaticBlob from "@alfredo.salzillo/blobs/StaticBlob";
-import { decodeBlob, encodeBlob, encoderVersion } from "@/plugins/blob-encoder";
-
-const generateBlobUrl = (host: string, blob: BlobDescriptor) =>
-  encodeURI(`${host}/api/blob?version=${encoderVersion}&d=${encodeBlob(blob)}`);
+import { decodeBlob } from "@/plugins/blob-encoder";
+import { generateBlobUrl } from "@/plugins/generate-blob-url";
 
 export async function GET(req: NextRequest) {
   const host = req.nextUrl.origin;
